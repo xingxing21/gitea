@@ -13,16 +13,16 @@
 				{{ctx.Locale.Tr "action.compare_commits_general"}}
 			{{end}}
 		</h2>
-		{{$BaseCompareName := printf "%s/%s" $.BaseName $.Repository.Name -}}
-		{{- $HeadCompareName := printf "%s/%s" $.HeadRepo.OwnerName $.HeadRepo.Name -}}
-		{{- $OwnForkCompareName := "" -}}
-		{{- if .OwnForkRepo -}}
-			{{- $OwnForkCompareName = printf "%s/%s" .OwnForkRepo.OwnerName .OwnForkRepo.Name -}}
-		{{- end -}}
-		{{- $RootRepoCompareName := "" -}}
-		{{- if .RootRepo -}}
-			{{- $RootRepoCompareName = printf "%s/%s" .RootRepo.OwnerName .RootRepo.Name -}}
-		{{- end -}}
+		{{$BaseCompareName := $.Repository.FullName -}}
+		{{$HeadCompareName := $.HeadRepo.FullName -}}
+		{{$OwnForkCompareName := "" -}}
+		{{if $.OwnForkRepo -}}
+			{{$OwnForkCompareName = $.OwnForkRepo.FullName -}}
+		{{end -}}
+		{{$RootRepoCompareName := "" -}}
+		{{if $.RootRepo -}}
+			{{$RootRepoCompareName = $.RootRepo.FullName -}}
+		{{end -}}
 
 		<div class="ui segment choose branch">
 			<a class="tw-mr-2" href="{{$.HeadRepo.Link}}/compare/{{PathEscapeSegments $.HeadBranch}}{{$compareSeparator}}{{if not $.PullRequestCtx.SameRepo}}{{PathEscape $.BaseName}}/{{PathEscape $.Repository.Name}}:{{end}}{{PathEscapeSegments $.BaseBranch}}" title="{{ctx.Locale.Tr "repo.pulls.switch_head_and_base"}}">{{svg "octicon-git-compare"}}</a>
